@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const Projects = () => {
@@ -72,7 +71,6 @@ const Projects = () => {
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              {/* Project type badge */}
               <div className="flex justify-between items-start mb-4">
                 <span className={`px-3 py-1 rounded-full text-sm font-mono bg-gradient-to-r ${project.color} text-black font-semibold`}>
                   {project.type}
@@ -87,7 +85,6 @@ const Projects = () => {
                 </span>
               </div>
 
-              {/* Project title and description */}
               <h3 className="text-xl font-mono font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
                 {project.title}
               </h3>
@@ -96,7 +93,6 @@ const Projects = () => {
                 {project.description}
               </p>
 
-              {/* Tech stack */}
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tech.map((tech) => (
                   <span key={tech} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-sm font-mono">
@@ -105,7 +101,6 @@ const Projects = () => {
                 ))}
               </div>
 
-              {/* Code snippet on hover */}
               {hoveredProject === project.id && (
                 <div className="absolute inset-0 bg-black/90 backdrop-blur rounded-lg flex items-center justify-center p-6 transition-all duration-300">
                   <div className="bg-gray-900 border border-cyan-400 rounded-lg p-4 font-mono text-sm">
@@ -117,17 +112,20 @@ const Projects = () => {
                 </div>
               )}
 
-              {/* Holographic effect */}
               <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-br ${project.color} rounded-lg transition-opacity duration-300`} />
             </div>
           ))}
         </div>
 
-        {/* Call to action */}
         <div className="text-center mt-12">
-          <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-mono font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50 hover:scale-105">
+          <a 
+            href="https://github.com/Imran8125?tab=repositories" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-mono font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50 hover:scale-105"
+          >
             View All Projects on GitHub →
-          </button>
+          </a>
         </div>
       </div>
     </section>
