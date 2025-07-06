@@ -5,14 +5,22 @@ const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   const skills = [
-    { name: 'Java', level: 90, category: 'Backend', icon: '☕', description: 'Enterprise applications & Spring Boot' },
-    { name: 'Python', level: 95, category: 'AI', icon: '🐍', description: 'ML models & data analysis' },
-    { name: 'C/C++', level: 85, category: 'System', icon: '⚡', description: 'System programming & algorithms' },
-    { name: 'PyTorch', level: 80, category: 'AI', icon: '🔥', description: 'Deep learning & neural networks' },
-    { name: 'Spring Boot', level: 88, category: 'Backend', icon: '🍃', description: 'RESTful APIs & microservices' },
-    { name: 'PostgreSQL', level: 82, category: 'Database', icon: '🐘', description: 'Database design & optimization' },
-    { name: 'Docker', level: 78, category: 'DevOps', icon: '🐳', description: 'Containerization & deployment' },
-    { name: 'React', level: 85, category: 'Frontend', icon: '⚛️', description: 'Modern web applications' }
+    { name: 'Java', level: 90, category: 'Languages', icon: '☕', description: 'Core Java & enterprise applications' },
+    { name: 'Python', level: 88, category: 'Languages', icon: '🐍', description: 'Backend development & AI/ML' },
+    { name: 'C', level: 85, category: 'Languages', icon: '⚡', description: 'System programming & algorithms' },
+    { name: 'JavaScript', level: 82, category: 'Frontend', icon: '🟨', description: 'Dynamic web applications' },
+    { name: 'HTML/CSS', level: 85, category: 'Frontend', icon: '🎨', description: 'Web structure & styling' },
+    { name: 'Spring Boot', level: 90, category: 'Frameworks', icon: '🍃', description: 'REST APIs & microservices' },
+    { name: 'Flask', level: 85, category: 'Frameworks', icon: '🌶️', description: 'Python web applications' },
+    { name: 'LangChain', level: 80, category: 'Frameworks', icon: '🔗', description: 'AI application development' },
+    { name: 'Docker', level: 82, category: 'DevOps', icon: '🐳', description: 'Containerization & deployment' },
+    { name: 'Kubernetes', level: 78, category: 'DevOps', icon: '⚓', description: 'Container orchestration' },
+    { name: 'Git', level: 88, category: 'DevOps', icon: '📋', description: 'Version control & collaboration' },
+    { name: 'REST APIs', level: 90, category: 'APIs', icon: '🔌', description: 'API design & integration' },
+    { name: 'Google APIs', level: 85, category: 'APIs', icon: '🌐', description: 'Gmail & Calendar integration' },
+    { name: 'Gemini API', level: 80, category: 'APIs', icon: '🤖', description: 'AI model integration' },
+    { name: 'Maven', level: 85, category: 'Tools', icon: '📦', description: 'Java dependency management' },
+    { name: 'JSON', level: 88, category: 'Others', icon: '📄', description: 'Data interchange format' }
   ];
 
   return (
