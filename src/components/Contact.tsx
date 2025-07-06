@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const Contact = () => {
@@ -122,19 +121,23 @@ const Contact = () => {
             <div className="mt-8 pt-6 border-t border-gray-700">
               <div className="flex justify-center gap-6">
                 <a 
-                  href="mailto:imran@example.com" 
+                  href="mailto:imran8122005@gmail.com" 
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
                   📧 Email
                 </a>
                 <a 
-                  href="https://github.com/imran" 
+                  href="https://github.com/Imran8125" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
                   🐙 GitHub
                 </a>
                 <a 
-                  href="https://linkedin.com/in/imran" 
+                  href="https://linkedin.com/in/imran-s812" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
                   💼 LinkedIn
