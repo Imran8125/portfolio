@@ -6,44 +6,54 @@ const Projects = () => {
 
   const projects = [
     {
-      id: 'ai-agent',
-      title: 'Intelligent Task Automation Agent',
-      description: 'AI-powered agent that learns user patterns and automates repetitive tasks using natural language processing.',
+      id: 'hr-ai',
+      title: 'Agentic HR AI – Automated Recruitment Platform',
+      description: 'Engineered an end-to-end recruitment system using Python, LangChain, and Gemini 1.5 to automate resume screening, interview scheduling, and candidate communication. Built a web-based HR dashboard and adaptive chat-based interview portal using Flask and Google APIs.',
       type: '♟ AI Agent',
-      tech: ['Python', 'PyTorch', 'NLP', 'FastAPI'],
+      tech: ['Python', 'Flask', 'LangChain', 'Gemini API', 'Gmail API', 'Calendar API', 'JSON'],
       status: 'Deployed',
-      codeSnippet: "agent.learn_pattern(user_input)\nagent.automate_task()",
+      codeSnippet: "hr_agent.screen_resume(candidate)\nhr_agent.schedule_interview()",
       color: 'from-cyan-400 to-blue-500'
     },
     {
-      id: 'cyber-tool',
-      title: 'Network Security Scanner',
-      description: 'Advanced penetration testing tool that identifies vulnerabilities in network infrastructure.',
-      type: '♖ Cyber Tool',
-      tech: ['C++', 'Python', 'Nmap', 'SQLite'],
-      status: 'Beta',
-      codeSnippet: "scanner.detect_vulnerabilities()\nscanner.generate_report()",
-      color: 'from-red-400 to-orange-500'
-    },
-    {
-      id: 'backend-app',
-      title: 'Microservices E-commerce API',
-      description: 'Scalable backend system handling 10k+ concurrent users with real-time inventory management.',
+      id: 'ecommerce',
+      title: 'E-Commerce Platform',
+      description: 'Engineered a full-stack e-commerce application using Java and Spring Boot to master secure authentication and backend scalability. Built shopping cart and order processing system with real-time APIs and deployed using Docker and Kubernetes.',
       type: '♘ Backend App',
-      tech: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker'],
+      tech: ['Java', 'Spring Boot', 'REST APIs', 'Docker', 'Kubernetes', 'H2 Database'],
       status: 'Production',
-      codeSnippet: "@RestController\npublic class OrderService {\n  // Handle orders\n}",
+      codeSnippet: "@RestController\npublic class OrderController {\n  // Handle orders\n}",
       color: 'from-green-400 to-emerald-500'
     },
     {
-      id: 'ml-model',
-      title: 'Predictive Analytics Engine',
-      description: 'Machine learning model that predicts market trends with 94% accuracy using ensemble methods.',
+      id: 'ai-chatbot',
+      title: 'Next-Gen AI Chatbot',
+      description: 'Engineered a web-based chatbot using Flask and Gemini 1.5 Pro to simulate 25+ AI personalities and enable real-time conversations. Built a responsive UI and dynamic chatbot logic that adapts to user prompts and personalities.',
       type: '♟ AI Agent',
-      tech: ['Python', 'Scikit-learn', 'Pandas', 'AWS'],
-      status: 'Research',
-      codeSnippet: "model.fit(training_data)\npredictions = model.predict(new_data)",
+      tech: ['Python', 'Flask', 'Gemini API', 'HTML', 'CSS', 'JavaScript'],
+      status: 'Beta',
+      codeSnippet: "chatbot.load_personality(selected)\nchatbot.generate_response(prompt)",
       color: 'from-purple-400 to-pink-500'
+    },
+    {
+      id: 'solar-planner',
+      title: 'Solar System Mission Planner',
+      description: 'Engineered a simulation tool using Python to visualize planetary positions and plan optimal interplanetary trajectories with Hohmann transfer logic. Used NumPy and Matplotlib to calculate travel windows and mission duration.',
+      type: '♖ Simulation Tool',
+      tech: ['Python', 'NumPy', 'Matplotlib', 'Orbital Mechanics'],
+      status: 'Research',
+      codeSnippet: "trajectory = calculate_hohmann_transfer()\nplot_mission_window(trajectory)",
+      color: 'from-red-400 to-orange-500'
+    },
+    {
+      id: 'currency-converter',
+      title: 'Currency Converter Application',
+      description: 'Developed a real-time currency converter using JavaFX and integrated external APIs for live exchange rates. Designed an intuitive GUI and used Maven for dependency management.',
+      type: '♘ Desktop App',
+      tech: ['Java 11', 'JavaFX', 'REST APIs', 'Maven'],
+      status: 'Production',
+      codeSnippet: "ExchangeRate rate = api.getLiveRate();\nconvertedAmount = calculate(amount, rate);",
+      color: 'from-yellow-400 to-amber-500'
     }
   ];
 
