@@ -33,7 +33,7 @@ const About = () => {
             
             {/* Glowing orbit rings */}
             <div className="absolute inset-0 border-2 border-cyan-400/30 rounded-full animate-spin" style={{ animationDuration: '20s' }} />
-            <div className="absolute inset-4 border border-blue-400/20 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+            <div className="absolute inset-4 border border-blue-400/20 rounded-full" style={{ animation: 'spin 15s linear infinite reverse' }} />
           </div>
         </div>
 
