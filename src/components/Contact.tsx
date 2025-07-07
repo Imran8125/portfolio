@@ -127,24 +127,17 @@ const Contact = () => {
                   📧 Email
                 </a>
                 <a 
-<<<<<<< HEAD
-                  href="https://github.com/imran8125" 
-=======
                   href="https://github.com/Imran8125" 
                   target="_blank"
                   rel="noopener noreferrer"
->>>>>>> b2cefb0f99f6838bb2a3f2eeb913af81d65d9cea
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
                   🐙 GitHub
                 </a>
                 <a 
                   href="https://linkedin.com/in/imran-s812" 
-<<<<<<< HEAD
-=======
                   target="_blank"
                   rel="noopener noreferrer"
->>>>>>> b2cefb0f99f6838bb2a3f2eeb913af81d65d9cea
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
                   💼 LinkedIn
