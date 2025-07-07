@@ -3,16 +3,15 @@ import React from 'react';
 
 const About = () => {
   const stats = [
-    { label: 'AI Models Built', value: '5', color: 'text-cyan-400' },
-    { label: 'C Programs Compiled', value: '1200+', color: 'text-blue-400' },
-    { label: 'GitHub Commits', value: '3,700', color: 'text-purple-400' }
+    { label: 'LeetCode Problems', value: '150+', color: 'text-cyan-400' },
+    { label: 'CodeVita Rank', value: 'Top 3%', color: 'text-blue-400' }
   ];
 
   return (
     <section id="about" className="min-h-screen flex items-center py-20 px-4">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         
-        {/* Left: Pixel chessboard with planets */}
+        {/* Left: Pixel chessboard with revolving chess pieces */}
         <div className="relative">
           <div className="w-80 h-80 mx-auto relative">
             {/* Chessboard */}
@@ -24,16 +23,34 @@ const About = () => {
                     Math.floor(i / 8) % 2 === i % 2 
                       ? 'bg-gray-700' 
                       : 'bg-gray-600'
-                  } ${[8, 16, 24, 32, 40, 48].includes(i) ? 'text-cyan-400' : ''}`}
+                  }`}
                 >
-                  {[8, 16, 24, 32, 40, 48].includes(i) && '🪐'}
                 </div>
               ))}
             </div>
             
-            {/* Glowing orbit rings */}
-            <div className="absolute inset-0 border-2 border-cyan-400/30 rounded-full animate-spin" style={{ animationDuration: '20s' }} />
-            <div className="absolute inset-4 border border-blue-400/20 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+            {/* Revolving chess pieces as planets */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              {/* Outer orbit - King */}
+              <div className="absolute w-72 h-72 border border-cyan-400/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}>
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-2xl">♔</div>
+              </div>
+              
+              {/* Middle orbit - Queen */}
+              <div className="absolute w-56 h-56 border border-blue-400/20 rounded-full" style={{ animation: 'spin 15s linear infinite reverse' }}>
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-2xl text-cyan-400">♕</div>
+              </div>
+              
+              {/* Inner orbit - Rook */}
+              <div className="absolute w-40 h-40 border border-purple-400/20 rounded-full animate-spin" style={{ animationDuration: '12s' }}>
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-xl text-purple-400">♖</div>
+              </div>
+              
+              {/* Innermost orbit - Knight */}
+              <div className="absolute w-24 h-24 border border-green-400/20 rounded-full" style={{ animation: 'spin 8s linear infinite reverse' }}>
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-lg text-green-400">♘</div>
+              </div>
+            </div>
           </div>
         </div>
 
