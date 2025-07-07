@@ -3,8 +3,8 @@ import React from 'react';
 
 const About = () => {
   const stats = [
-    { label: 'AI Models Built', value: '5', color: 'text-cyan-400' },
-    { label: 'C Programs Compiled', value: '1200+', color: 'text-blue-400' },
+    { label: 'LeetCode Problems', value: '150+', color: 'text-cyan-400' },
+    { label: 'CodeVita Rank', value: 'Top 3%', color: 'text-blue-400' },
     { label: 'GitHub Commits', value: '3,700', color: 'text-purple-400' }
   ];
 
