@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const Skills = () => {
@@ -12,15 +11,7 @@ const Skills = () => {
     { name: 'HTML/CSS', level: 85, category: 'Frontend', icon: '🎨', description: 'Web structure & styling' },
     { name: 'Spring Boot', level: 90, category: 'Frameworks', icon: '🍃', description: 'REST APIs & microservices' },
     { name: 'Flask', level: 85, category: 'Frameworks', icon: '🌶️', description: 'Python web applications' },
-    { name: 'LangChain', level: 80, category: 'Frameworks', icon: '🔗', description: 'AI application development' },
-    { name: 'Docker', level: 82, category: 'DevOps', icon: '🐳', description: 'Containerization & deployment' },
-    { name: 'Kubernetes', level: 78, category: 'DevOps', icon: '⚓', description: 'Container orchestration' },
-    { name: 'Git', level: 88, category: 'DevOps', icon: '📋', description: 'Version control & collaboration' },
-    { name: 'REST APIs', level: 90, category: 'APIs', icon: '🔌', description: 'API design & integration' },
-    { name: 'Google APIs', level: 85, category: 'APIs', icon: '🌐', description: 'Gmail & Calendar integration' },
-    { name: 'Gemini API', level: 80, category: 'APIs', icon: '🤖', description: 'AI model integration' },
-    { name: 'Maven', level: 85, category: 'Tools', icon: '📦', description: 'Java dependency management' },
-    { name: 'JSON', level: 88, category: 'Others', icon: '📄', description: 'Data interchange format' }
+    { name: 'LangChain', level: 80, category: 'Frameworks', icon: '🔗', description: 'AI application development' }
   ];
 
   return (
