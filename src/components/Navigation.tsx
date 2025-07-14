@@ -17,9 +17,33 @@ const Navigation = () => {
     const handleScroll = () => {
       const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
       setScrollProgress(scrolled);
+
+      // Check which section is currently in view
+      const sectionElements = sections.map(section => ({
+        id: section.id,
+        element: document.getElementById(section.id)
+      })).filter(section => section.element);
+
+      let currentSection = 'home';
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      for (const section of sectionElements) {
+        const sectionTop = section.element!.offsetTop;
+        const sectionHeight = section.element!.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          currentSection = section.id;
+          break;
+        }
+      }
+
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Call once on mount to set initial state
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
