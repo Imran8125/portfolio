@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 
@@ -28,6 +27,15 @@ const Hero = () => {
       clearInterval(cursorTimer);
     };
   }, []);
+
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = "/Imran's Resume.pdf";
+    link.download = "Imran's Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative">
@@ -62,7 +70,10 @@ const Hero = () => {
             <div className="absolute inset-0 bg-white/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </button>
           
-          <button className="group relative px-8 py-4 border-2 border-cyan-400 text-cyan-400 rounded-lg font-mono font-semibold transition-all duration-300 hover:bg-cyan-400 hover:text-black hover:shadow-lg hover:shadow-cyan-400/50">
+          <button 
+            onClick={handleDownloadResume}
+            className="group relative px-8 py-4 border-2 border-cyan-400 text-cyan-400 rounded-lg font-mono font-semibold transition-all duration-300 hover:bg-cyan-400 hover:text-black hover:shadow-lg hover:shadow-cyan-400/50"
+          >
             <span className="mr-2">♜</span>
             Download Resume
           </button>
