@@ -49,8 +49,8 @@ const Navigation = () => {
           </button>
         ))}
         
-        {/* Progress bar - responsive sizing */}
-        <div className="w-1 h-20 md:h-32 bg-gray-800 rounded-full relative mt-2 md:mt-4">
+        {/* Progress bar - positioned at the edge */}
+        <div className="w-1 h-20 md:h-32 bg-gray-800 rounded-full relative mt-2 md:mt-4 ml-auto">
           <div 
             className="w-full bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full transition-all duration-300"
             style={{ height: `${scrollProgress}%` }}
