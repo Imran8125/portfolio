@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animatedSkills, setAnimatedSkills] = useState<Set<number>>(new Set());
+  const sectionRef = useRef<HTMLElement>(null);
 
   const skills = [
     { name: 'Java', level: 90, category: 'Languages', icon: '☕', description: 'Core Java & enterprise applications' },
@@ -14,8 +17,37 @@ const Skills = () => {
     { name: 'LangChain', level: 80, category: 'Frameworks', icon: '🔗', description: 'AI application development' }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+          // Trigger staggered animations
+          skills.forEach((_, index) => {
+            setTimeout(() => {
+              setAnimatedSkills(prev => new Set([...prev, index]));
+            }, index * 100); // 100ms delay between each skill
+          });
+        }
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [isVisible, skills]);
+
   return (
-    <section id="skills" className="min-h-screen py-20 px-4">
+    <section ref={sectionRef} id="skills" className="min-h-screen py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-mono font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
           &gt; Skills.map()
@@ -29,7 +61,11 @@ const Skills = () => {
                 Math.floor(index / 4) % 2 === index % 2
                   ? 'bg-gray-900/30 border-gray-700'
                   : 'bg-gray-800/30 border-gray-600'
-              } hover:border-cyan-400 hover:bg-cyan-400/10 hover:scale-105`}
+              } hover:border-cyan-400 hover:bg-cyan-400/10 hover:scale-105 ${
+                animatedSkills.has(index) 
+                  ? 'animate-scale-in' 
+                  : 'opacity-0 scale-95'
+              }`}
               onMouseEnter={() => setHoveredSkill(skill.name)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
