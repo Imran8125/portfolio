@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animatedProjects, setAnimatedProjects] = useState<Set<number>>(new Set());
+  const sectionRef = useRef<HTMLElement>(null);
 
   const projects = [
     {
@@ -56,18 +59,51 @@ const Projects = () => {
     }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+          // Trigger staggered animations
+          projects.forEach((_, index) => {
+            setTimeout(() => {
+              setAnimatedProjects(prev => new Set([...prev, index]));
+            }, index * 200); // 200ms delay between each project
+          });
+        }
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [isVisible, projects]);
+
   return (
-    <section id="projects" className="min-h-screen py-20 px-4">
+    <section ref={sectionRef} id="projects" className="min-h-screen py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-mono font-bold text-center mb-12 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
           &gt; Projects.filter(impressive)
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
-              className="relative bg-gray-900/50 backdrop-blur border border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/20 group cursor-pointer"
+              className={`relative bg-gray-900/50 backdrop-blur border border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/20 group cursor-pointer ${
+                animatedProjects.has(index) 
+                  ? 'animate-scale-in' 
+                  : 'opacity-0 scale-95'
+              }`}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
