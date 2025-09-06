@@ -52,7 +52,6 @@ const Skills = () => {
                     style={{ width: `${skill.level}%` }}
                   />
                 </div>
-                <span className="text-xs text-cyan-400 mt-1">{skill.level}%</span>
               </div>
 
               {/* Hover tooltip */}
