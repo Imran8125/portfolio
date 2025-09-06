@@ -44,14 +44,6 @@ const Skills = () => {
                 <div className="text-xs text-gray-400 text-center">
                   {skill.category}
                 </div>
-                
-                {/* Progress bar */}
-                <div className="w-full bg-gray-700 rounded-full h-1 mt-2">
-                  <div 
-                    className="bg-gradient-to-r from-cyan-400 to-blue-500 h-1 rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
               </div>
 
               {/* Hover tooltip */}
