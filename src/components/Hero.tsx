@@ -30,8 +30,8 @@ const Hero = () => {
 
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = "/Imran's Resume.pdf";
-    link.download = "Imran's Resume.pdf";
+    link.href = "/Shaik Imran's Resume.pdf";
+    link.download = "Shaik Imran's Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
