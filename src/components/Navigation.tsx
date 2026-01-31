@@ -1,18 +1,18 @@
-
 import React, { useState, useEffect } from 'react';
+import { Atom, Orbit, Zap, Activity, Star, Globe, Radio } from 'lucide-react';
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const sections = [
-    { id: 'home', name: 'Home', symbol: '♔' },
-    { id: 'about', name: 'About', symbol: '♕' },
-    { id: 'skills', name: 'Skills', symbol: '♗' },
-    { id: 'experience', name: 'Experience', symbol: '♚' },
-    { id: 'achievements', name: 'Achievements', symbol: '♛' },
-    { id: 'projects', name: 'Projects', symbol: '♖' },
-    { id: 'contact', name: 'Contact', symbol: '♘' }
+    { id: 'home', name: 'Home', Icon: Atom },
+    { id: 'about', name: 'About', Icon: Orbit },
+    { id: 'skills', name: 'Skills', Icon: Zap },
+    { id: 'experience', name: 'Experience', Icon: Activity },
+    { id: 'achievements', name: 'Achievements', Icon: Star },
+    { id: 'projects', name: 'Projects', Icon: Globe },
+    { id: 'contact', name: 'Contact', Icon: Radio }
   ];
 
   useEffect(() => {
@@ -58,22 +58,25 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Chess piece scroll indicator - responsive positioning */}
+      {/* Physics-themed scroll indicator - responsive positioning */}
       <div className="fixed right-2 md:right-8 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-2 md:gap-4">
-        {sections.map((section, index) => (
-          <button
-            key={section.id}
-            onClick={() => scrollToSection(section.id)}
-            className={`w-8 h-8 md:w-12 md:h-12 rounded-lg border-2 flex items-center justify-center text-sm md:text-xl transition-all duration-300 hover:scale-110 ${
-              activeSection === section.id
-                ? 'border-cyan-400 bg-cyan-400/20 text-cyan-400 shadow-lg shadow-cyan-400/50'
-                : 'border-gray-600 text-gray-400 hover:border-cyan-400 hover:text-cyan-400'
-            }`}
-            title={section.name}
-          >
-            {section.symbol}
-          </button>
-        ))}
+        {sections.map((section) => {
+          const IconComponent = section.Icon;
+          return (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(section.id)}
+              className={`w-8 h-8 md:w-12 md:h-12 rounded-lg border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+                activeSection === section.id
+                  ? 'border-cyan-400 bg-cyan-400/20 text-cyan-400 shadow-lg shadow-cyan-400/50'
+                  : 'border-gray-600 text-gray-400 hover:border-cyan-400 hover:text-cyan-400'
+              }`}
+              title={section.name}
+            >
+              <IconComponent className="w-4 h-4 md:w-6 md:h-6" />
+            </button>
+          );
+        })}
         
         {/* Progress bar - positioned at the edge */}
         <div className="w-1 h-20 md:h-32 bg-gray-800 rounded-full relative mt-2 md:mt-4 ml-auto">
