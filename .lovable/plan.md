@@ -1,134 +1,171 @@
 
 
-# Plan: Add Experience and Achievements Sections
+# Plan: Transform Theme to Theoretical Physics & General Relativity
 
 ## Overview
-Add two new sections (Experience and Achievements) to the portfolio website, following the existing design patterns including: dark theme, cyan/blue gradient accents, font-mono typography, card-based layouts, and scroll-triggered staggered animations.
-
-## Design System Analysis
-
-The existing design system uses:
-- **Colors**: Cyan-400, Blue-500, Purple variations, Gray-700/800/900 backgrounds
-- **Typography**: `font-mono` throughout, gradient text for headings
-- **Cards**: `bg-gray-900/50 backdrop-blur border border-gray-700` with hover effects
-- **Animations**: Scale-in with staggered delays using IntersectionObserver
-- **Section Headings**: `text-4xl font-mono font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent`
-- **Section Container**: `min-h-screen py-20 px-4` with `max-w-6xl mx-auto`
+Replace all chess-themed visual elements with physics-inspired aesthetics while maintaining the existing Space + Coding dark mode design system (neon cyan, purple, monospace fonts).
 
 ---
 
-## Implementation Steps
+## Summary of Changes
 
-### 1. Create Experience Section Component
+| Component | Current (Chess) | New (Physics) |
+|-----------|-----------------|---------------|
+| Navigation icons | Chess pieces (♔♕♗♚♛♖♘) | Lucide physics icons (Atom, Globe, Activity, etc.) |
+| Hero floating elements | Chess pieces | Physics formulas (E=mc², λ, Σ, ∇) |
+| Hero buttons | Chess symbols | Lucide icons (Rocket, Download) |
+| Hero grid | 8x8 chessboard | Curved spacetime grid |
+| About visual | Chessboard with orbiting pieces | Atom model with electron orbits |
+| About text | "strategic thinking of chess" | "elegance of physics" |
+| Projects badges | ♟ ♘ ♖ prefixes | Lucide icons |
+| Background | Stars only | Stars + warped grid + floating formulas |
 
-**File**: `src/components/Experience.tsx`
+---
 
-A vertical timeline with animated cards containing:
+## Implementation Details
 
-| Role | Company | Duration |
-|------|---------|----------|
-| Team Lead - Software Engineering Intern | Infosys Springboard | Nov 2025 - Jan 2026 |
-| Machine Learning Intern | Edunet Foundation | Oct 2025 - Nov 2025 |
-| Open Source Contributor | JabRef | Mar 2025 - Apr 2025 |
+### 1. Navigation Component (`src/components/Navigation.tsx`)
 
-**Features**:
-- Vertical timeline with connecting line (cyan gradient)
-- Cards with role badge, company name, duration
-- Bullet points for achievements
-- Staggered scroll animation (matching Projects/Skills pattern)
-- Timeline dots with glow effect
+Replace chess piece symbols with Lucide React icons:
 
-### 2. Create Achievements Section Component
+| Section | Chess | Physics Icon | Why |
+|---------|-------|--------------|-----|
+| Home | ♔ | `Atom` | Fundamental building block |
+| About | ♕ | `Orbit` | Personal orbit/journey |
+| Skills | ♗ | `Zap` | Energy/power |
+| Experience | ♚ | `Activity` | Wave/pulse (light waves) |
+| Achievements | ♛ | `Star` | Stars/recognition |
+| Projects | ♖ | `Globe` | Spacetime/gravity well |
+| Contact | ♘ | `Radio` | Signal transmission |
 
-**File**: `src/components/Achievements.tsx`
+Update comment from "Chess piece scroll indicator" to "Physics-themed scroll indicator".
 
-A responsive grid of achievement cards:
+### 2. Hero Component (`src/components/Hero.tsx`)
 
-| Achievement | Type |
-|-------------|------|
-| TCS CodeVita 2025: Global Rank 156 | Competition |
-| NASA Citizen Scientist (IASC) | Recognition |
-| ISRO World Space Week 2024: 1st Place | Award |
-| Google Cybersecurity Professional Certificate | Certification |
-| Oracle AI Vector Search Certified Professional | Certification |
+**Button Icons:**
+- "View Projects" button: Replace ♞ with `Rocket` icon
+- "Download Resume" button: Replace ♜ with `FileDown` icon
 
-**Features**:
-- Grid layout: `grid-cols-1 md:grid-cols-2` 
-- Trophy/medal icons for achievements
-- Certificate icon for certifications
-- Staggered scroll animation
-- Hover effects with gradient glow
+**Floating Elements:**
+Replace chess pieces with physics formulas using monospace styling:
+- `E=mc²` (mass-energy equivalence)
+- `λ` (wavelength)
+- `Σ` (summation)
+- `∇` (nabla/gradient operator)
 
-### 3. Update Navigation Component
+**Background Grid:**
+Transform 8x8 chessboard into curved spacetime visualization:
+- Use CSS perspective and transforms to create warped grid effect
+- Lines curving toward center (gravity well effect)
 
-**File**: `src/components/Navigation.tsx`
+### 3. About Component (`src/components/About.tsx`)
 
-Add two new navigation items:
-- Experience section (chess symbol: `♚`)
-- Achievements section (chess symbol: `♛`)
+**Visual Element:**
+Replace chessboard with revolving chess pieces with an **Atom Model**:
+- Central nucleus (glowing sphere)
+- Electron orbits with particles
+- Keep the same orbit animation structure
+- Replace chess symbols with electron dots
 
-### 4. Update Index Page
+**Text Update:**
+Change: "My journey combines the strategic thinking of chess with the precision of code"
+To: "My journey combines the elegance of physics with the precision of code"
 
-**File**: `src/pages/Index.tsx`
+### 4. Background Effects (`src/components/BackgroundEffects.tsx`)
 
-Import and render the new sections in order:
-1. Hero
-2. About
-3. Skills
-4. **Experience** (new)
-5. **Achievements** (new)
-6. Projects
-7. Contact
+**Add Physics Elements:**
 
-### 5. Add Custom Animation Keyframe
+1. **Warped Grid Overlay**: Faint curved lines representing spacetime curvature
+2. **Floating Formulas**: Slowly drifting physics symbols (E=mc², λ, ∫, Σ, ∂, ℏ)
+3. **Keep existing stars** but add subtle glow variations
 
-**File**: `tailwind.config.ts`
+Implementation approach:
+- Add a second canvas layer for the grid effect
+- Create formula particles that drift slowly (similar to stars but with text)
+- Grid uses perspective transforms for 3D warping effect
 
-Add `scale-in` animation keyframe for the staggered card animations (if not already present).
+### 5. Projects Component (`src/components/Projects.tsx`)
+
+Update project type badges to remove chess symbols:
+
+| Current | New |
+|---------|-----|
+| `♟ AI Agent` | `AI Agent` (with Bot icon) |
+| `♘ Backend App` | `Backend App` (with Server icon) |
+| `♖ Simulation Tool` | `Simulation Tool` (with Orbit icon) |
+| `♘ Desktop App` | `Desktop App` (with Monitor icon) |
+
+### 6. New Physics Grid Component (`src/components/PhysicsGrid.tsx`)
+
+Create a reusable curved spacetime grid overlay:
+- Uses CSS/SVG for curved grid lines
+- Subtle opacity (5-10%)
+- Centers around a "gravity well" point
+- Can be applied to Hero section
+
+---
+
+## Files to Modify
+
+| File | Changes |
+|------|---------|
+| `src/components/Navigation.tsx` | Replace chess symbols with Lucide icons |
+| `src/components/Hero.tsx` | New floating formulas, button icons, curved grid |
+| `src/components/About.tsx` | Atom model instead of chessboard, text update |
+| `src/components/BackgroundEffects.tsx` | Add warped grid + floating formulas |
+| `src/components/Projects.tsx` | Remove chess symbols from type badges |
 
 ---
 
 ## Technical Details
 
-### Experience Timeline Structure
+### Lucide Icons to Import
 
-```text
-+------------------+
-|  TIMELINE LINE   |
-|       |          |
-|   [DOT]----------+---------------+
-|       |          |   CARD        |
-|       |          |   - Role      |
-|       |          |   - Company   |
-|       |          |   - Duration  |
-|       |          |   - Bullets   |
-|       |          +---------------+
-|       |
-|   [DOT]----------+---------------+
-|       |          |   CARD        |
-|       |          +---------------+
-+------------------+
+```typescript
+import { 
+  Atom,        // Home
+  Orbit,       // About  
+  Zap,         // Skills
+  Activity,    // Experience
+  Star,        // Achievements
+  Globe,       // Projects
+  Radio,       // Contact
+  Rocket,      // View Projects button
+  FileDown,    // Download Resume button
+  Bot,         // AI Agent badge
+  Server,      // Backend App badge
+  Monitor      // Desktop App badge
+} from 'lucide-react';
 ```
 
-### Achievements Grid Structure
+### Floating Physics Formulas
+```typescript
+const formulas = [
+  { text: 'E=mc²', delay: '0s' },
+  { text: 'λ', delay: '0.5s' },
+  { text: '∑', delay: '1s' },
+  { text: '∇²ψ', delay: '1.5s' },
+  { text: 'ℏ', delay: '2s' }
+];
+```
 
-```text
-+------------------------------------------+
-|  [CARD: Award]      [CARD: Recognition]  |
-|  [CARD: Award]      [CARD: Certification]|
-|  [CARD: Certification]                   |
-+------------------------------------------+
+### Curved Grid CSS Approach
+```css
+.spacetime-grid {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  /* Grid lines use radial gradient for curve effect */
+}
 ```
 
 ---
 
-## Files to Create/Modify
+## Visual Outcome
 
-| File | Action |
-|------|--------|
-| `src/components/Experience.tsx` | Create new |
-| `src/components/Achievements.tsx` | Create new |
-| `src/components/Navigation.tsx` | Modify (add 2 nav items) |
-| `src/pages/Index.tsx` | Modify (import and render new sections) |
-| `tailwind.config.ts` | Modify (add scale-in keyframe if needed) |
+The website will feel like a **futuristic scientific interface** with:
+- Atomic/orbital motifs replacing chess pieces
+- Curved spacetime grids instead of chessboards
+- Floating physics equations drifting in the background
+- Same neon cyan/purple/dark aesthetic for "high-energy physics" look
+- All existing animations and scroll effects preserved
 
