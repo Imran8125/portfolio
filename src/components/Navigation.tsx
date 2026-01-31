@@ -9,6 +9,8 @@ const Navigation = () => {
     { id: 'home', name: 'Home', symbol: '♔' },
     { id: 'about', name: 'About', symbol: '♕' },
     { id: 'skills', name: 'Skills', symbol: '♗' },
+    { id: 'experience', name: 'Experience', symbol: '♚' },
+    { id: 'achievements', name: 'Achievements', symbol: '♛' },
     { id: 'projects', name: 'Projects', symbol: '♖' },
     { id: 'contact', name: 'Contact', symbol: '♘' }
   ];
