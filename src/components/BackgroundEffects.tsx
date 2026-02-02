@@ -130,8 +130,13 @@ const BackgroundEffects = () => {
     };
 
     const animate = () => {
-      // Clear canvas completely for smooth cursor response
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear and redraw background gradient for smooth cursor response
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#0a0a0a');
+      gradient.addColorStop(0.5, '#1a0033');
+      gradient.addColorStop(1, '#000011');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw warped grid
       drawWarpedGrid();
