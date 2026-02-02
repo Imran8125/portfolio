@@ -130,15 +130,11 @@ const BackgroundEffects = () => {
     };
 
     const animate = () => {
-      // Clear and redraw background gradient for smooth cursor response
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#0a0a0a');
-      gradient.addColorStop(0.5, '#1a0033');
-      gradient.addColorStop(1, '#000011');
-      ctx.fillStyle = gradient;
+      // Clear with slight trail effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw warped grid
+      // Draw warped grid (static, so draw once per frame)
       drawWarpedGrid();
 
       // Draw stars
