@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 const BackgroundEffects = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,8 +16,13 @@ const BackgroundEffects = () => {
       canvas.height = window.innerHeight;
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('mousemove', handleMouseMove);
 
     // Stars
     const stars: Array<{x: number, y: number, size: number, speed: number}> = [];
@@ -51,30 +57,57 @@ const BackgroundEffects = () => {
       });
     }
 
-    // Draw warped grid
+    // Draw warped grid with cursor interaction
     const drawWarpedGrid = () => {
       const gridSpacing = 80;
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
+      const mouse = mouseRef.current;
+      const cursorInfluence = 150; // Radius of cursor influence
+      const cursorStrength = 40; // How much the cursor bends the grid
       
-      ctx.strokeStyle = 'rgba(0, 255, 255, 0.03)';
+      ctx.strokeStyle = 'rgba(0, 255, 255, 0.04)';
       ctx.lineWidth = 1;
+
+      // Helper function to calculate warp at a point
+      const getWarpedPoint = (x: number, y: number) => {
+        // Base warp from center (gravity well effect)
+        const distX = (x - centerX) / centerX;
+        const distY = (y - centerY) / centerY;
+        const dist = Math.sqrt(distX * distX + distY * distY);
+        const baseWarp = Math.sin(dist * Math.PI) * 20;
+        
+        // Cursor warp
+        const cursorDx = x - mouse.x;
+        const cursorDy = y - mouse.y;
+        const cursorDist = Math.sqrt(cursorDx * cursorDx + cursorDy * cursorDy);
+        
+        let cursorWarpX = 0;
+        let cursorWarpY = 0;
+        
+        if (cursorDist < cursorInfluence && cursorDist > 0) {
+          const factor = (1 - cursorDist / cursorInfluence) * cursorStrength;
+          // Push points away from cursor (like a gravity repulsion)
+          cursorWarpX = (cursorDx / cursorDist) * factor;
+          cursorWarpY = (cursorDy / cursorDist) * factor;
+        }
+        
+        return {
+          x: x + baseWarp * (1 - Math.abs(distX)) * 0.3 + cursorWarpX,
+          y: y + baseWarp * (1 - Math.abs(distY)) * 0.3 + cursorWarpY
+        };
+      };
 
       // Horizontal lines with warp effect
       for (let y = 0; y < canvas.height; y += gridSpacing) {
         ctx.beginPath();
         for (let x = 0; x <= canvas.width; x += 10) {
-          const distX = (x - centerX) / centerX;
-          const distY = (y - centerY) / centerY;
-          const dist = Math.sqrt(distX * distX + distY * distY);
-          const warp = Math.sin(dist * Math.PI) * 20;
-          
-          const warpedY = y + warp * (1 - Math.abs(distY));
+          const warped = getWarpedPoint(x, y);
           
           if (x === 0) {
-            ctx.moveTo(x, warpedY);
+            ctx.moveTo(warped.x, warped.y);
           } else {
-            ctx.lineTo(x, warpedY);
+            ctx.lineTo(warped.x, warped.y);
           }
         }
         ctx.stroke();
@@ -84,17 +117,12 @@ const BackgroundEffects = () => {
       for (let x = 0; x < canvas.width; x += gridSpacing) {
         ctx.beginPath();
         for (let y = 0; y <= canvas.height; y += 10) {
-          const distX = (x - centerX) / centerX;
-          const distY = (y - centerY) / centerY;
-          const dist = Math.sqrt(distX * distX + distY * distY);
-          const warp = Math.sin(dist * Math.PI) * 20;
-          
-          const warpedX = x + warp * (1 - Math.abs(distX));
+          const warped = getWarpedPoint(x, y);
           
           if (y === 0) {
-            ctx.moveTo(warpedX, y);
+            ctx.moveTo(warped.x, warped.y);
           } else {
-            ctx.lineTo(warpedX, y);
+            ctx.lineTo(warped.x, warped.y);
           }
         }
         ctx.stroke();
@@ -145,6 +173,7 @@ const BackgroundEffects = () => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
