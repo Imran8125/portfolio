@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Trophy, Award, Medal, BadgeCheck } from 'lucide-react';
+import { Trophy, Award, Medal } from 'lucide-react';
 
 const Achievements = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,18 +24,6 @@ const Achievements = () => {
       description: '1st Place Winner in Quiz',
       type: 'award',
       icon: Medal
-    },
-    {
-      title: 'Google Cybersecurity Professional',
-      description: 'Professional Certificate',
-      type: 'certification',
-      icon: BadgeCheck
-    },
-    {
-      title: 'Oracle AI Vector Search',
-      description: 'Certified Professional',
-      type: 'certification',
-      icon: BadgeCheck
     }
   ];
 

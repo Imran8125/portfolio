@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Atom, Orbit, Zap, Activity, Star, Globe, Radio } from 'lucide-react';
+import { Atom, Orbit, Zap, Activity, Star, Globe, Radio, BadgeCheck } from 'lucide-react';
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -11,6 +11,7 @@ const Navigation = () => {
     { id: 'skills', name: 'Skills', Icon: Zap },
     { id: 'experience', name: 'Experience', Icon: Activity },
     { id: 'achievements', name: 'Achievements', Icon: Star },
+    { id: 'certifications', name: 'Certifications', Icon: BadgeCheck },
     { id: 'projects', name: 'Projects', Icon: Globe },
     { id: 'contact', name: 'Contact', Icon: Radio }
   ];

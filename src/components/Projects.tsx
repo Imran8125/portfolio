@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, Server, Orbit, Monitor } from 'lucide-react';
+import { Bot, Server } from 'lucide-react';
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
@@ -8,6 +8,28 @@ const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   const projects = [
+    {
+      id: 'exchangecore',
+      title: 'ExchangeCore – High-Frequency Order Matching Engine',
+      description: 'Engineered a high-throughput order matching engine processing 100K+ orders/second with sub-1ms latency using lock-free ring buffers and zero-allocation object pooling. Designed a fault-tolerant distributed system that reconstructs the order book in under 10 seconds via Write-Ahead Logging, snapshot management, and asynchronous journal serialization.',
+      type: 'Systems Engine',
+      typeIcon: Server,
+      tech: ['Java 21', 'LMAX Disruptor', 'Javalin', 'Gradle'],
+      status: 'Production',
+      codeSnippet: "ringBuffer.publishEvent(order);\nmatchingEngine.match(orderBook);",
+      color: 'from-cyan-400 to-blue-500'
+    },
+    {
+      id: 'finagent',
+      title: 'FinAgent – Agentic Financial Research & Portfolio Modeling System',
+      description: 'Architected a 6-stage agentic pipeline using LangGraph, dynamically routing analysis tasks across Gemini and OpenRouter based on task complexity and availability. Built a full-stack research platform grounding LLM outputs in live market data through a RAG-style ingestion layer, plus a deterministic validation layer enforcing hard financial assertions across a custom DCF/CAPM/portfolio-backtesting engine.',
+      type: 'AI Agent',
+      typeIcon: Bot,
+      tech: ['React 19', 'TypeScript', 'Express.js', 'LangGraph', 'OpenRouter', 'Google Gemini'],
+      status: 'Deployed',
+      codeSnippet: "graph.route(task, [gemini, openrouter])\nvalidate(dcf_model.value())",
+      color: 'from-purple-400 to-pink-500'
+    },
     {
       id: 'hr-ai',
       title: 'Agentic HR AI – Automated Recruitment Platform',
@@ -29,39 +51,6 @@ const Projects = () => {
       status: 'Production',
       codeSnippet: "@RestController\npublic class OrderController {\n  // Handle orders\n}",
       color: 'from-green-400 to-emerald-500'
-    },
-    {
-      id: 'ai-chatbot',
-      title: 'Next-Gen AI Chatbot',
-      description: 'Engineered a web-based chatbot using Flask and Gemini 1.5 Pro to simulate 25+ AI personalities and enable real-time conversations. Built a responsive UI and dynamic chatbot logic that adapts to user prompts and personalities.',
-      type: 'AI Agent',
-      typeIcon: Bot,
-      tech: ['Python', 'Flask', 'Gemini API', 'HTML', 'CSS', 'JavaScript'],
-      status: 'Beta',
-      codeSnippet: "chatbot.load_personality(selected)\nchatbot.generate_response(prompt)",
-      color: 'from-purple-400 to-pink-500'
-    },
-    {
-      id: 'solar-planner',
-      title: 'Solar System Mission Planner',
-      description: 'Engineered a simulation tool using Python to visualize planetary positions and plan optimal interplanetary trajectories with Hohmann transfer logic. Used NumPy and Matplotlib to calculate travel windows and mission duration.',
-      type: 'Simulation Tool',
-      typeIcon: Orbit,
-      tech: ['Python', 'NumPy', 'Matplotlib', 'Orbital Mechanics'],
-      status: 'Research',
-      codeSnippet: "trajectory = calculate_hohmann_transfer()\nplot_mission_window(trajectory)",
-      color: 'from-red-400 to-orange-500'
-    },
-    {
-      id: 'currency-converter',
-      title: 'Currency Converter Application',
-      description: 'Developed a real-time currency converter using JavaFX and integrated external APIs for live exchange rates. Designed an intuitive GUI and used Maven for dependency management.',
-      type: 'Desktop App',
-      typeIcon: Monitor,
-      tech: ['Java 11', 'JavaFX', 'REST APIs', 'Maven'],
-      status: 'Production',
-      codeSnippet: "ExchangeRate rate = api.getLiveRate();\nconvertedAmount = calculate(amount, rate);",
-      color: 'from-yellow-400 to-amber-500'
     }
   ];
 
