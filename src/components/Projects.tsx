@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, Server, Orbit, Monitor } from 'lucide-react';
+import { Bot, Server } from 'lucide-react';
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
@@ -51,39 +51,6 @@ const Projects = () => {
       status: 'Production',
       codeSnippet: "@RestController\npublic class OrderController {\n  // Handle orders\n}",
       color: 'from-green-400 to-emerald-500'
-    },
-    {
-      id: 'ai-chatbot',
-      title: 'Next-Gen AI Chatbot',
-      description: 'Engineered a web-based chatbot using Flask and Gemini 1.5 Pro to simulate 25+ AI personalities and enable real-time conversations. Built a responsive UI and dynamic chatbot logic that adapts to user prompts and personalities.',
-      type: 'AI Agent',
-      typeIcon: Bot,
-      tech: ['Python', 'Flask', 'Gemini API', 'HTML', 'CSS', 'JavaScript'],
-      status: 'Beta',
-      codeSnippet: "chatbot.load_personality(selected)\nchatbot.generate_response(prompt)",
-      color: 'from-purple-400 to-pink-500'
-    },
-    {
-      id: 'solar-planner',
-      title: 'Solar System Mission Planner',
-      description: 'Engineered a simulation tool using Python to visualize planetary positions and plan optimal interplanetary trajectories with Hohmann transfer logic. Used NumPy and Matplotlib to calculate travel windows and mission duration.',
-      type: 'Simulation Tool',
-      typeIcon: Orbit,
-      tech: ['Python', 'NumPy', 'Matplotlib', 'Orbital Mechanics'],
-      status: 'Research',
-      codeSnippet: "trajectory = calculate_hohmann_transfer()\nplot_mission_window(trajectory)",
-      color: 'from-red-400 to-orange-500'
-    },
-    {
-      id: 'currency-converter',
-      title: 'Currency Converter Application',
-      description: 'Developed a real-time currency converter using JavaFX and integrated external APIs for live exchange rates. Designed an intuitive GUI and used Maven for dependency management.',
-      type: 'Desktop App',
-      typeIcon: Monitor,
-      tech: ['Java 11', 'JavaFX', 'REST APIs', 'Maven'],
-      status: 'Production',
-      codeSnippet: "ExchangeRate rate = api.getLiveRate();\nconvertedAmount = calculate(amount, rate);",
-      color: 'from-yellow-400 to-amber-500'
     }
   ];
 
