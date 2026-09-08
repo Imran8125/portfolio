@@ -9,6 +9,28 @@ const Projects = () => {
 
   const projects = [
     {
+      id: 'exchangecore',
+      title: 'ExchangeCore – High-Frequency Order Matching Engine',
+      description: 'Engineered a high-throughput order matching engine processing 100K+ orders/second with sub-1ms latency using lock-free ring buffers and zero-allocation object pooling. Designed a fault-tolerant distributed system that reconstructs the order book in under 10 seconds via Write-Ahead Logging, snapshot management, and asynchronous journal serialization.',
+      type: 'Systems Engine',
+      typeIcon: Server,
+      tech: ['Java 21', 'LMAX Disruptor', 'Javalin', 'Gradle'],
+      status: 'Production',
+      codeSnippet: "ringBuffer.publishEvent(order);\nmatchingEngine.match(orderBook);",
+      color: 'from-cyan-400 to-blue-500'
+    },
+    {
+      id: 'finagent',
+      title: 'FinAgent – Agentic Financial Research & Portfolio Modeling System',
+      description: 'Architected a 6-stage agentic pipeline using LangGraph, dynamically routing analysis tasks across Gemini and OpenRouter based on task complexity and availability. Built a full-stack research platform grounding LLM outputs in live market data through a RAG-style ingestion layer, plus a deterministic validation layer enforcing hard financial assertions across a custom DCF/CAPM/portfolio-backtesting engine.',
+      type: 'AI Agent',
+      typeIcon: Bot,
+      tech: ['React 19', 'TypeScript', 'Express.js', 'LangGraph', 'OpenRouter', 'Google Gemini'],
+      status: 'Deployed',
+      codeSnippet: "graph.route(task, [gemini, openrouter])\nvalidate(dcf_model.value())",
+      color: 'from-purple-400 to-pink-500'
+    },
+    {
       id: 'hr-ai',
       title: 'Agentic HR AI – Automated Recruitment Platform',
       description: 'Engineered an end-to-end recruitment system using Python, LangChain, and Gemini 1.5 to automate resume screening, interview scheduling, and candidate communication. Built a web-based HR dashboard and adaptive chat-based interview portal using Flask and Google APIs.',
