@@ -1,5 +1,69 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { clock, effect, frameLoop, init, surface } from 'vgpu';
 import ResumeAdmin from './ResumeAdmin';
+
+const OxygenAtom = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    let dispose: (() => void) | undefined;
+    let cancelled = false;
+
+    const start = async () => {
+      if (!canvasRef.current) return;
+      try {
+        const gpu = await init();
+        if (cancelled || !canvasRef.current) {
+          gpu.dispose();
+          return;
+        }
+        const atomSurface = surface(gpu, canvasRef.current, { dpr: [1, 2] });
+        const time = clock(gpu);
+        const atom = effect(gpu, `
+          struct Params { time: f32, texel: vec2f }
+          @group(0) @binding(0) var<uniform> params: Params;
+          fn hash21(p: vec2f) -> f32 { return fract(sin(dot(p, vec2f(127.1, 311.7))) * 43758.5453); }
+          fn ring(p: vec2f, radius: f32, width: f32) -> f32 {
+            return smoothstep(width, 0.0, abs(length(p) - radius));
+          }
+          @fragment fn fs_main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+            let uv = (pos.xy * params.texel - 0.5) * 2.0;
+            let t = params.time;
+            var color = vec3f(0.005, 0.012, 0.03);
+            let glow = exp(-length(uv) * 2.8);
+            color += vec3f(0.01, 0.12, 0.2) * glow;
+            let orbitA = abs(uv.x * 0.82 + uv.y * 0.34);
+            let orbitB = abs(uv.x * 0.82 - uv.y * 0.34);
+            color += vec3f(0.02, 0.42, 0.65) * smoothstep(0.018, 0.0, abs(orbitA - 0.42));
+            color += vec3f(0.1, 0.18, 0.65) * smoothstep(0.018, 0.0, abs(orbitB - 0.42));
+            color += vec3f(0.02, 0.32, 0.42) * ring(uv, 0.39, 0.014);
+            let nucleus = exp(-length(uv) * 18.0);
+            color += vec3f(0.85, 0.14, 0.75) * nucleus;
+            color += vec3f(0.1, 0.8, 1.0) * exp(-length(uv) * 32.0);
+            for (var i = 0; i < 8; i++) {
+              let a = t * (0.45 + f32(i % 3) * 0.12) + f32(i) * 0.785;
+              let p = vec2f(cos(a), sin(a)) * (0.42 + 0.03 * sin(f32(i) * 4.0));
+              color += vec3f(0.25, 0.9, 1.0) * exp(-length(uv - p) * 90.0);
+            }
+            return vec4f(color, 1.0);
+          }
+        `, { set: { params: { time: 0, texel: atomSurface.texelSize } } });
+        atomSurface.onResize(() => atom.set({ params: { texel: atomSurface.texelSize } }));
+        frameLoop(gpu, (frame) => {
+          atom.set({ params: { time: time.time } });
+          frame.pass(atomSurface, atom);
+        });
+        dispose = () => gpu.dispose();
+      } catch {
+        // WebGPU is optional; the canvas remains a graceful enhancement.
+      }
+    };
+    start();
+    return () => { cancelled = true; dispose?.(); };
+  }, []);
+
+  return <canvas ref={canvasRef} aria-label="Animated 3D-inspired oxygen atom model" className="oxygen-atom-canvas" />;
+};
 
 const About = () => {
   const stats = [
@@ -25,42 +89,9 @@ const About = () => {
         
         {/* Left: Atom model with orbiting electrons */}
         <div className="relative">
-          <div
-            onClick={handleSecretClick}
-            className="w-80 h-80 mx-auto relative flex items-center justify-center cursor-default select-none"
-          >
-            {/* Central nucleus */}
-            <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 shadow-lg shadow-cyan-400/50 animate-pulse flex items-center justify-center">
-              <div className="w-8 h-8 rounded-full bg-white/30" />
-            </div>
-            
-            {/* Outer orbit - slowest */}
-            <div className="absolute w-72 h-72 border border-cyan-400/30 rounded-full animate-spin" style={{ animationDuration: '20s' }}>
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/80" />
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-400/60" />
-            </div>
-            
-            {/* Middle orbit - medium speed, reverse */}
-            <div className="absolute w-52 h-52 border border-blue-400/30 rounded-full" style={{ animation: 'spin 15s linear infinite reverse' }}>
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-blue-400 shadow-lg shadow-blue-400/80" />
-              <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 w-3 h-3 rounded-full bg-blue-400/60" />
-            </div>
-            
-            {/* Inner orbit - faster */}
-            <div className="absolute w-36 h-36 border border-purple-400/30 rounded-full animate-spin" style={{ animationDuration: '10s' }}>
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-purple-400 shadow-lg shadow-purple-400/80" />
-            </div>
-            
-            {/* Innermost orbit - fastest, reverse */}
-            <div className="absolute w-24 h-24 border border-green-400/30 rounded-full" style={{ animation: 'spin 6s linear infinite reverse' }}>
-              <div className="absolute -top-1.5 left-1/2 transform -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-green-400 shadow-lg shadow-green-400/80" />
-            </div>
-
-            {/* Orbital plane indicator - tilted ellipse */}
-            <div 
-              className="absolute w-64 h-20 border border-cyan-400/10 rounded-full"
-              style={{ transform: 'rotateX(75deg)' }}
-            />
+          <div onClick={handleSecretClick} className="w-80 h-80 mx-auto relative flex items-center justify-center cursor-default select-none">
+            <OxygenAtom />
+            <span className="sr-only">Click the oxygen atom eight times to access the admin panel.</span>
           </div>
         </div>
 
