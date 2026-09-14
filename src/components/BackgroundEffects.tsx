@@ -139,8 +139,8 @@ const BackgroundEffects = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw warped grid (static, so draw once per frame)
-      drawWarpedGrid();
+      // Warped grid is drawn on the GPU layer when WebGPU is available
+      if (!gpuActiveRef.current) drawWarpedGrid();
 
       // Draw stars
       stars.forEach(star => {
