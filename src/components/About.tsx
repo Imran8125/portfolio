@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import ResumeAdmin from './ResumeAdmin';
 
 const About = () => {
   const stats = [
     { label: 'LeetCode Problems', value: '150+', color: 'text-cyan-400' },
     { label: 'CodeVita Rank', value: 'Top 3%', color: 'text-blue-400' }
   ];
+
+  const clicksRef = useRef<number[]>([]);
+  const [adminOpen, setAdminOpen] = useState(false);
+
+  const handleSecretClick = () => {
+    const now = Date.now();
+    clicksRef.current = [...clicksRef.current, now].filter((t) => now - t <= 4000);
+    if (clicksRef.current.length >= 8) {
+      clicksRef.current = [];
+      setAdminOpen(true);
+    }
+  };
 
   return (
     <section id="about" className="min-h-screen flex items-center py-20 px-4">
