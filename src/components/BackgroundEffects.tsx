@@ -1,8 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { startGravityField, type GravityFieldHandle } from '@/lib/gravityField';
 
 const BackgroundEffects = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const gpuCanvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const gpuActiveRef = useRef(false);
+  const [gpuActive, setGpuActive] = useState(false);
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
