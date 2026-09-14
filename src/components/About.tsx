@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import ResumeAdmin from './ResumeAdmin';
 
 const About = () => {
   const stats = [
@@ -6,13 +7,28 @@ const About = () => {
     { label: 'CodeVita Rank', value: 'Top 3%', color: 'text-blue-400' }
   ];
 
+  const clicksRef = useRef<number[]>([]);
+  const [adminOpen, setAdminOpen] = useState(false);
+
+  const handleSecretClick = () => {
+    const now = Date.now();
+    clicksRef.current = [...clicksRef.current, now].filter((t) => now - t <= 4000);
+    if (clicksRef.current.length >= 8) {
+      clicksRef.current = [];
+      setAdminOpen(true);
+    }
+  };
+
   return (
     <section id="about" className="min-h-screen flex items-center py-20 px-4">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         
         {/* Left: Atom model with orbiting electrons */}
         <div className="relative">
-          <div className="w-80 h-80 mx-auto relative flex items-center justify-center">
+          <div
+            onClick={handleSecretClick}
+            className="w-80 h-80 mx-auto relative flex items-center justify-center cursor-default select-none"
+          >
             {/* Central nucleus */}
             <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 shadow-lg shadow-cyan-400/50 animate-pulse flex items-center justify-center">
               <div className="w-8 h-8 rounded-full bg-white/30" />
@@ -82,6 +98,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <ResumeAdmin open={adminOpen} onClose={() => setAdminOpen(false)} />
     </section>
   );
 };

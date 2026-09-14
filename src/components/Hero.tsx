@@ -28,13 +28,27 @@ const Hero = () => {
     };
   }, []);
 
-  const handleDownloadResume = () => {
+  const triggerDownload = (href: string, filename: string) => {
     const link = document.createElement('a');
-    link.href = "/Shaik Imran's Resume.pdf";
-    link.download = "Shaik Imran's Resume.pdf";
+    link.href = href;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleDownloadResume = async () => {
+    const url = `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/functions/v1/resume-download`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('no uploaded resume');
+      const blob = await res.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      triggerDownload(objectUrl, "Shaik Imran's Resume.pdf");
+      URL.revokeObjectURL(objectUrl);
+    } catch {
+      triggerDownload("/Shaik Imran's Resume.pdf", "Shaik Imran's Resume.pdf");
+    }
   };
 
   // Floating physics formulas
