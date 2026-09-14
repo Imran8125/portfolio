@@ -98,6 +98,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <ResumeAdmin open={adminOpen} onClose={() => setAdminOpen(false)} />
     </section>
   );
 };
