@@ -101,5 +101,15 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    cursor: url('/blackhole-cursor.svg') 16 16, auto;
+  }
+
+  a,
+  button,
+  [role='button'],
+  input,
+  textarea,
+  select {
+    cursor: url('/blackhole-cursor.svg') 16 16, pointer;
   }
 }
