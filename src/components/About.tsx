@@ -25,7 +25,10 @@ const About = () => {
         
         {/* Left: Atom model with orbiting electrons */}
         <div className="relative">
-          <div className="w-80 h-80 mx-auto relative flex items-center justify-center">
+          <div
+            onClick={handleSecretClick}
+            className="w-80 h-80 mx-auto relative flex items-center justify-center cursor-default select-none"
+          >
             {/* Central nucleus */}
             <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 shadow-lg shadow-cyan-400/50 animate-pulse flex items-center justify-center">
               <div className="w-8 h-8 rounded-full bg-white/30" />
