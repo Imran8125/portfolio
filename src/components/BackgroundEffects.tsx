@@ -1,8 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { startGravityField, type GravityFieldHandle } from '@/lib/gravityField';
 
 const BackgroundEffects = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const gpuCanvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const gpuActiveRef = useRef(false);
+  const [gpuActive, setGpuActive] = useState(false);
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -134,8 +139,8 @@ const BackgroundEffects = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw warped grid (static, so draw once per frame)
-      drawWarpedGrid();
+      // Warped grid is drawn on the GPU layer when WebGPU is available
+      if (!gpuActiveRef.current) drawWarpedGrid();
 
       // Draw stars
       stars.forEach(star => {
@@ -177,12 +182,56 @@ const BackgroundEffects = () => {
     };
   }, []);
 
+  // WebGPU gravity well that bends spacetime around the cursor
+  useEffect(() => {
+    const gpuCanvas = gpuCanvasRef.current;
+    if (!gpuCanvas) return;
+
+    let handle: GravityFieldHandle | null = null;
+    let disposed = false;
+
+    startGravityField(gpuCanvas, mouseRef)
+      .then((h) => {
+        if (disposed) {
+          h?.stop();
+          return;
+        }
+        handle = h;
+        if (h) {
+          gpuActiveRef.current = true;
+          setGpuActive(true);
+        }
+      })
+      .catch(() => {
+        gpuActiveRef.current = false;
+      });
+
+    return () => {
+      disposed = true;
+      gpuActiveRef.current = false;
+      handle?.stop();
+    };
+  }, []);
+
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ background: 'linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #000011 100%)' }}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{ background: 'linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #000011 100%)' }}
+      />
+      <canvas
+        ref={gpuCanvasRef}
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          mixBlendMode: 'screen',
+          opacity: gpuActive ? 1 : 0,
+          transition: 'opacity 600ms ease',
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    </>
   );
 };
 
