@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Github, Linkedin, Mail, Zap } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -124,7 +125,8 @@ const Contact = () => {
                   href="mailto:imran8122005@gmail.com" 
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
-                  📧 Email
+                  <Mail aria-hidden="true" className="mr-2 inline-block size-4" />
+                  Email
                 </a>
                 <a 
                   href="https://github.com/Imran8125" 
@@ -132,7 +134,8 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
-                  🐙 GitHub
+                  <Github aria-hidden="true" className="mr-2 inline-block size-4" />
+                  GitHub
                 </a>
                 <a 
                   href="https://linkedin.com/in/imran-s812" 
@@ -140,7 +143,8 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="text-cyan-400 hover:text-white transition-colors font-mono"
                 >
-                  💼 LinkedIn
+                  <Linkedin aria-hidden="true" className="mr-2 inline-block size-4" />
+                  LinkedIn
                 </a>
               </div>
             </div>
@@ -150,7 +154,7 @@ const Contact = () => {
         {/* Footer */}
         <div className="text-center mt-12 pt-8 border-t border-gray-800">
           <p className="font-mono text-gray-400">
-            © 2025 Imran • Crafted with ⚡ and strategic thinking
+            © 2025 Imran • Crafted with <Zap aria-hidden="true" className="mx-1 inline-block size-4 text-cyan-400" /> and strategic thinking
           </p>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Braces, Coffee, Code2, Flame, Leaf, Link2, Palette, Zap } from 'lucide-react';
 
 const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
@@ -7,14 +8,14 @@ const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   const skills = [
-    { name: 'Java', level: 90, category: 'Languages', icon: '☕', description: 'Core Java & enterprise applications' },
-    { name: 'Python', level: 88, category: 'Languages', icon: '🐍', description: 'Backend development & AI/ML' },
-    { name: 'C', level: 85, category: 'Languages', icon: '⚡', description: 'System programming & algorithms' },
-    { name: 'JavaScript', level: 82, category: 'Frontend', icon: '🟨', description: 'Dynamic web applications' },
-    { name: 'HTML/CSS', level: 85, category: 'Frontend', icon: '🎨', description: 'Web structure & styling' },
-    { name: 'Spring Boot', level: 90, category: 'Frameworks', icon: '🍃', description: 'REST APIs & microservices' },
-    { name: 'Flask', level: 85, category: 'Frameworks', icon: '🌶️', description: 'Python web applications' },
-    { name: 'LangChain', level: 80, category: 'Frameworks', icon: '🔗', description: 'AI application development' }
+    { name: 'Java', level: 90, category: 'Languages', icon: Coffee, description: 'Core Java & enterprise applications' },
+    { name: 'Python', level: 88, category: 'Languages', icon: Code2, description: 'Backend development & AI/ML' },
+    { name: 'C', level: 85, category: 'Languages', icon: Zap, description: 'System programming & algorithms' },
+    { name: 'JavaScript', level: 82, category: 'Frontend', icon: Braces, description: 'Dynamic web applications' },
+    { name: 'HTML/CSS', level: 85, category: 'Frontend', icon: Palette, description: 'Web structure & styling' },
+    { name: 'Spring Boot', level: 90, category: 'Frameworks', icon: Leaf, description: 'REST APIs & microservices' },
+    { name: 'Flask', level: 85, category: 'Frameworks', icon: Flame, description: 'Python web applications' },
+    { name: 'LangChain', level: 80, category: 'Frameworks', icon: Link2, description: 'AI application development' }
   ];
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const Skills = () => {
               {/* Skill content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
                 <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-                  {skill.icon}
+                  <skill.icon aria-hidden="true" className="size-8 text-cyan-400" />
                 </div>
                 <h3 className="font-mono font-semibold text-white text-center mb-1">
                   {skill.name}
